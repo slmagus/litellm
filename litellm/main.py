@@ -2397,6 +2397,7 @@ def completion(
                         "top_k": kwargs.get("top_k", 40),
                     },
                 },
+                timeout=30
             )
             response_json = resp.json()
             """

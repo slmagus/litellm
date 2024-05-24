@@ -4137,7 +4137,7 @@ def get_image_dimensions(data):
 
     # Check if data is a URL by trying to parse it
     try:
-        response = requests.get(data)
+        response = requests.get(data, timeout=30)
         response.raise_for_status()  # Check if the request was successful
         img_data = response.content
     except Exception:
@@ -7054,7 +7054,7 @@ def get_max_tokens(model: str):
         config_url = f"https://huggingface.co/{model_name}/raw/main/config.json"
         try:
             # Make the HTTP request to get the raw JSON file
-            response = requests.get(config_url)
+            response = requests.get(config_url, timeout=30)
             response.raise_for_status()  # Raise an exception for bad responses (4xx or 5xx)
 
             # Parse the JSON response
@@ -7122,7 +7122,7 @@ def get_model_info(model: str):
 
         try:
             # Make the HTTP request to get the raw JSON file
-            response = requests.get(config_url)
+            response = requests.get(config_url, timeout=30)
             response.raise_for_status()  # Raise an exception for bad responses (4xx or 5xx)
 
             # Parse the JSON response
@@ -8385,6 +8385,7 @@ def get_all_keys(llm_provider=None):
                     url="http://api.litellm.ai/get_all_keys",
                     headers={"content-type": "application/json"},
                     data=json.dumps({"user_email": user_email}),
+                    timeout=30
                 )
                 print_verbose(f"get model key response: {response.text}")
                 data = response.json()
@@ -8424,6 +8425,7 @@ def get_model_list():
                 url="http://api.litellm.ai/get_model_list",
                 headers={"content-type": "application/json"},
                 data=json.dumps({"user_email": user_email}),
+                timeout=30
             )
             print_verbose(f"get_model_list response: {response.text}")
             data = response.json()

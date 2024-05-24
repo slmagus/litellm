@@ -54,7 +54,7 @@ class BudgetManager:
             url = self.api_base + "/get_budget"
             headers = {"Content-Type": "application/json"}
             data = {"project_name": self.project_name}
-            response = requests.post(url, headers=self.headers, json=data)
+            response = requests.post(url, headers=self.headers, json=data, timeout=30)
             response = response.json()
             if response["status"] == "error":
                 self.user_dict = (
@@ -212,6 +212,6 @@ class BudgetManager:
             url = self.api_base + "/set_budget"
             headers = {"Content-Type": "application/json"}
             data = {"project_name": self.project_name, "user_dict": self.user_dict}
-            response = requests.post(url, headers=self.headers, json=data)
+            response = requests.post(url, headers=self.headers, json=data, timeout=30)
             response = response.json()
             return response
